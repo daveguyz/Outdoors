@@ -78,3 +78,42 @@
     </option>
   {%- endif -%}
 {%- endfor -%}
+function getPriceRangeValues() {
+  const minPriceInput = document.getElementById('minPriceInput');
+  const maxPriceInput = document.getElementById('maxPriceInput');
+
+  const minPrice = minPriceInput.value.trim() !== '' ? parseFloat(minPriceInput.value.trim()) : null;
+  const maxPrice = maxPriceInput.value.trim() !== '' ? parseFloat(maxPriceInput.value.trim()) : null;
+
+  return { minPrice, maxPrice };
+}
+
+function getPriceSearchParams(priceRangeValues) {
+  let params = '';
+
+  if (priceRangeValues.minPrice !== null) {
+    params += `&min_price=${priceRangeValues.minPrice}`;
+  }
+
+  if (priceRangeValues.maxPrice !== null) {
+    params += `&max_price=${priceRangeValues.maxPrice}`;
+  }
+
+  return params;
+}
+
+function getCollectionValues() {
+  const selectedCollections = document.querySelectorAll('.collection-checkbox:checked');
+  const collectionValues = Array.from(selectedCollections).map(collection => collection.value);
+  return collectionValues;
+}
+
+function getCollectionSearchParams(collectionValues) {
+  let params = '';
+
+  if (collectionValues.length > 0) {
+    params += `&collections=${collectionValues.join(',')}`;
+  }
+
+  return params;
+}
