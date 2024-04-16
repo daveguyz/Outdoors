@@ -76,42 +76,62 @@
   ]
 }
 {% endschema %}
-function getPriceRangeValues() {
-  const minPriceInput = document.getElementById('minPriceInput');
-  const maxPriceInput = document.getElementById('maxPriceInput');
+function getPriceRangeValues() { const minPriceInput = document.getElementById('minPriceInput'); const maxPriceInput =
+document.getElementById('maxPriceInput');
 
-  const minPrice = minPriceInput.value.trim() !== '' ? parseFloat(minPriceInput.value.trim()) : null;
-  const maxPrice = maxPriceInput.value.trim() !== '' ? parseFloat(maxPriceInput.value.trim()) : null;
+const minPrice = minPriceInput.value.trim() !== '' ? parseFloat(minPriceInput.value.trim()) : null; const maxPrice =
+maxPriceInput.value.trim() !== '' ? parseFloat(maxPriceInput.value.trim()) : null;
 
-  return { minPrice, maxPrice };
-}
+return { minPrice, maxPrice }; }
 
-function getPriceSearchParams(priceRangeValues) {
-  let params = '';
+function getPriceSearchParams(priceRangeValues) { let params = '';
 
-  if (priceRangeValues.minPrice !== null) {
-    params += `&min_price=${priceRangeValues.minPrice}`;
-  }
+if (priceRangeValues.minPrice !== null) { params += `&min_price=${priceRangeValues.minPrice}`; }
 
-  if (priceRangeValues.maxPrice !== null) {
-    params += `&max_price=${priceRangeValues.maxPrice}`;
-  }
+if (priceRangeValues.maxPrice !== null) { params += `&max_price=${priceRangeValues.maxPrice}`; }
 
-  return params;
-}
+return params; }
 
-function getCollectionValues() {
-  const selectedCollections = document.querySelectorAll('.collection-checkbox:checked');
-  const collectionValues = Array.from(selectedCollections).map(collection => collection.value);
-  return collectionValues;
-}
+function getCollectionValues() { const selectedCollections = document.querySelectorAll('.collection-checkbox:checked');
+const collectionValues = Array.from(selectedCollections).map(collection => collection.value); return collectionValues; }
 
-function getCollectionSearchParams(collectionValues) {
-  let params = '';
+function getCollectionSearchParams(collectionValues) { let params = '';
 
-  if (collectionValues.length > 0) {
-    params += `&collections=${collectionValues.join(',')}`;
-  }
+if (collectionValues.length > 0) { params += `&collections=${collectionValues.join(',')}`; }
 
-  return params;
-}
+return params; } class FacetFiltersForm extends HTMLElement { // Existing code...
+
+getPriceRangeValues() { const minPriceInput = document.getElementById('minPriceInput'); const maxPriceInput =
+document.getElementById('maxPriceInput');
+
+const minPrice = minPriceInput.value.trim() !== '' ? parseFloat(minPriceInput.value.trim()) : null; const maxPrice =
+maxPriceInput.value.trim() !== '' ? parseFloat(maxPriceInput.value.trim()) : null;
+
+return { minPrice, maxPrice }; }
+
+getPriceSearchParams(priceRangeValues) { let params = '';
+
+if (priceRangeValues.minPrice !== null) { params += `&min_price=${priceRangeValues.minPrice}`; }
+
+if (priceRangeValues.maxPrice !== null) { params += `&max_price=${priceRangeValues.maxPrice}`; }
+
+return params; }
+
+getCollectionValues() { const selectedCollections = document.querySelectorAll('.collection-checkbox:checked'); const
+collectionValues = Array.from(selectedCollections).map(collection => collection.value); return collectionValues; }
+
+getCollectionSearchParams(collectionValues) { let params = '';
+
+if (collectionValues.length > 0) { params += `&collections=${collectionValues.join(',')}`; }
+
+return params; }
+
+onSubmitForm(searchParams, event) { const priceRangeValues = this.getPriceRangeValues(); const priceParams =
+this.getPriceSearchParams(priceRangeValues); searchParams += '&' + priceParams;
+
+const collectionValues = this.getCollectionValues(); const collectionParams =
+this.getCollectionSearchParams(collectionValues); searchParams += '&' + collectionParams;
+
+FacetFiltersForm.renderPage(searchParams, event); }
+
+// Existing code... }
