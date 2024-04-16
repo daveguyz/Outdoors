@@ -451,3 +451,20 @@ this.getCollectionSearchParams(collectionValues); searchParams += '&' + collecti
 FacetFiltersForm.renderPage(searchParams, event); }
 
 // Existing code... }
+<!-- Example HTML structure for price range selection -->
+<div id="priceRangeContainer">
+  <label for="minPriceInput">Min Price:</label>
+  <input type="number" id="minPriceInput" name="minPrice" placeholder="Min Price">
+  <label for="maxPriceInput">Max Price:</label>
+  <input type="number" id="maxPriceInput" name="maxPrice" placeholder="Max Price">
+</div>
+
+<!-- Example HTML structure for collection filtering -->
+<div id="collectionFilterContainer">
+  <h4>Filter by Collection:</h4>
+  <input type="checkbox" class="collection-checkbox" id="collection1" name="collection" value="collection1">
+  <label for="collection1">Collection 1</label>
+  <input type="checkbox" class="collection-checkbox" id="collection2" name="collection" value="collection2">
+  <label for="collection2">Collection 2</label>
+  <!-- Add more checkboxes for additional collections -->
+</div>
